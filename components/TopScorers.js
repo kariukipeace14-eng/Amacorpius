@@ -2,22 +2,18 @@
 return (
   <div style={{ marginTop: '20px' }}>
     <h2>Top Scorers</h2>
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-      gap: '15px'
-    }}>
-      {scorers.map((player, index) => (
-        <div key={index} style={{
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '15px' }}>
+      {scorers.map((item, i) => (
+        <div key={i} style={{
           background: 'var(--card-bg)',
           borderRadius: '12px',
           padding: '15px',
           textAlign: 'center',
           boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
         }}>
-          <img 
-            src={player.player.photo} 
-            alt={player.player.name} 
+          <img
+            src={item.player.photo}
+            alt={item.player.name}
             style={{
               width: '80px',
               height: '80px',
@@ -25,14 +21,19 @@ return (
               objectFit: 'cover',
               marginBottom: '10px',
               border: '2px solid white'
-            }} 
+            }}
           />
-          <h3 style={{ margin: '5px 0' }}>{player.player.name}</h3>
+          <h3 style={{ margin: '5px 0' }}>{item.player.name}</h3>
           <p style={{ margin: '0', fontSize: '14px', opacity: 0.8 }}>
-            {player.statistics[0].team.name}
+            {item.statistics[0].team.name}
           </p>
+          <img
+            src={item.statistics[0].team.logo}
+            alt={item.statistics[0].team.name}
+            style={{ width: '40px', marginTop: '5px' }}
+          />
           <p style={{ fontWeight: 'bold', marginTop: '8px' }}>
-            {player.statistics[0].goals.total} goals
+            {item.statistics[0].goals.total} goals
           </p>
         </div>
       ))}
