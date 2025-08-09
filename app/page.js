@@ -1,5 +1,6 @@
 import TopScorers from '../components/TopScorers';
 import LeagueTable from '../components/LeagueTable';
+import RecentTransfers from '../components/RecentTransfers';
 
 export default function Home() {
   return (
@@ -12,6 +13,9 @@ export default function Home() {
 
       {/* League Table */}
       <LeagueTable leagueId={39} season={2023} />
+
+      {/* Recent Transfers */}
+      <RecentTransfers leagueId={39} season={2023} />
     </main>
   );
 }
