@@ -25,7 +25,7 @@ export default function LeagueTable({ leagueId = 39, season = 2023 }) {
   return (
     <div style={{ marginTop: '20px' }}>
       <h2>League Table</h2>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', background: 'var(--card-bg)', borderRadius: '8px', overflow: 'hidden' }}>
         <thead>
           <tr>
             <th>Pos</th>
@@ -39,10 +39,14 @@ export default function LeagueTable({ leagueId = 39, season = 2023 }) {
         </thead>
         <tbody>
           {table.map((team, index) => (
-            <tr key={index}>
+            <tr key={index} style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
               <td>{team.rank}</td>
-              <td>
-                <img src={team.team.logo} alt={team.team.name} style={{ width: '20px', marginRight: '5px' }} />
+              <td style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <img
+                  src={team.team.logo}
+                  alt={team.team.name}
+                  style={{ width: '24px', height: '24px' }}
+                />
                 {team.team.name}
               </td>
               <td>{team.points}</td>
