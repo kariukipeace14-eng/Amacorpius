@@ -1,50 +1,41 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { fetchFromApi } from '../lib/api';
 
-export default function TopScorers({ leagueId = 39, season = 2023 }) {
-  const [scorers, setScorers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadScorers() {
-      try {
-        const data = await fetchFromApi(`players/topscorers?league=${leagueId}&season=${season}`);
-        setScorers(data.response);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadScorers();
-  }, [leagueId, season]);
-
-  if (loading) return <p>Loading top scorers...</p>;
-
-  return (
-    <div style={{ marginTop: '20px' }}>
-      <h2>Top Scorers</h2>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {scorers.map((item, index) => (
-          <li key={index} style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: '10px',
-            background: 'rgba(255, 255, 255, 0.1)',
-            padding: '10px',
-            borderRadius: '8px'
-          }}>
-            <img src={item.player.photo} alt={item.player.name} style={{
-              width: '50px',
-              height: '50px',
+return (
+  <div style={{ marginTop: '20px' }}>
+    <h2>Top Scorers</h2>
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+      gap: '15px'
+    }}>
+      {scorers.map((player, index) => (
+        <div key={index} style={{
+          background: 'var(--card-bg)',
+          borderRadius: '12px',
+          padding: '15px',
+          textAlign: 'center',
+          boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+        }}>
+          <img 
+            src={player.player.photo} 
+            alt={player.player.name} 
+            style={{
+              width: '80px',
+              height: '80px',
               borderRadius: '50%',
-              marginRight: '10px'
-            }} />
-            <span>{item.player.name} - {item.statistics[0].goals.total} goals</span>
-          </li>
-        ))}
-      </ul>
+              objectFit: 'cover',
+              marginBottom: '10px',
+              border: '2px solid white'
+            }} 
+          />
+          <h3 style={{ margin: '5px 0' }}>{player.player.name}</h3>
+          <p style={{ margin: '0', fontSize: '14px', opacity: 0.8 }}>
+            {player.statistics[0].team.name}
+          </p>
+          <p style={{ fontWeight: 'bold', marginTop: '8px' }}>
+            {player.statistics[0].goals.total} goals
+          </p>
+        </div>
+      ))}
     </div>
-  );
-}
+  </div>
+);
